@@ -26,7 +26,8 @@ var settings = {
     darkTheme: true,
     headRadius: 60,
     thickness: 18,
-    tentacles: 40,
+    //tentacles: 40,
+    tentacles: 1,
     friction: 0.02,
     gravity: 0.5,
     colour: { h:0, s:0, v:0.1 },
@@ -138,6 +139,7 @@ Tentacle.prototype = {
             node.vx += settings.wind;
             node.vy += settings.gravity;
 
+
             node.ox = node.x;
             node.oy = node.y;
 
@@ -163,6 +165,7 @@ Tentacle.prototype = {
     },
 
     draw: function( ctx ) {
+
 
         var h, s, v, e;
 
@@ -191,6 +194,19 @@ Tentacle.prototype = {
             ctx.lineWidth = 1;
             ctx.stroke();
         }
+
+        // Draw red dots.
+        var currentFillStyle = ctx.fillStyle;
+        ctx.fillStyle = '#FF0000';
+        for (var i = 0; i < this.nodes.length; i++) {
+          var node = this.nodes[i];
+          ctx.beginPath();
+          ctx.arc( node.x, node.y, 5, 0, TWO_PI );
+          ctx.closePath();
+          ctx.fill();
+        }
+        ctx.fillStyle = currentFillStyle;
+
     }
 };
 
